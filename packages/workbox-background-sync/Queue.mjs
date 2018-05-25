@@ -142,6 +142,7 @@ class Queue {
       try {
         // Clone the request before fetching so callbacks get an unused one.
         replay.response = await fetch(replay.request.clone());
+        this._runCallback('requestDidReplay', storableRequest, replay.response)
         if (process.env.NODE_ENV !== 'production') {
           logger.log(`Request for '${getFriendlyURL(storableRequest.url)}'
              has been replayed`);
